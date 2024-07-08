@@ -1,0 +1,28 @@
+{
+    "name": "tacoberu/latte-filters",
+    "description": "Latte |filter supporting filtering.",
+    "type": "library",
+    "require": {
+    	"php" : ">=7.4.0",
+    	"latte/latte": ">=2.4"
+    },
+    "require-dev": {
+        "tracy/tracy": "^2.4",
+        "phpstan/phpstan": "^1.11"
+    },
+    "authors": [
+        {
+            "name": "Martin Takáč",
+            "email": "martin@takac.name"
+        }
+    ],
+	"autoload": {
+		"classmap": ["libs/"]
+    },
+	"scripts": {
+		"phpstan": [
+			"vendor/bin/phpstan analyse --memory-limit=512M"
+		]
+	},
+    "license": "MIT"
+}
