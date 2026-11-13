@@ -49,6 +49,13 @@ latte:
 `map` aplikuje callback `($value, $key, $iterable)` na každý prvek, zachovává klíče
 a vrací generátor; chování shodné s Latte 3.
 
+```latte
+{=[1, 2, 3]|fold: 0, fn($prev, $curr) => $prev + $curr}
+```
+
+`fold` zredukuje prvky na jednu hodnotu: začne s počáteční hodnotou a pro každý prvek
+zavolá callback `($prev, $curr)`. Tento filtr v Latte 3 není.
+
 
 ## License
 

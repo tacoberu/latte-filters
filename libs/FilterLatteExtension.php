@@ -17,6 +17,7 @@ final class FilterLatteExtension extends Latte\Extension
 		$engine->addFilter('filter', [$this, 'filter']);
 		$engine->addFilter('group', [$this, 'group']);
 		$engine->addFilter('map', [$this, 'map']);
+		$engine->addFilter('fold', [$this, 'fold']);
 	}
 
 
@@ -27,6 +28,7 @@ final class FilterLatteExtension extends Latte\Extension
 			'filter' => [$this, 'filter'],
 			'group' => [$this, 'group'],
 			'map' => [$this, 'map'],
+			'fold' => [$this, 'fold'],
 		];
 	}
 
@@ -106,6 +108,26 @@ final class FilterLatteExtension extends Latte\Extension
 		foreach ($iterable as $k => $v) {
 			yield $k => $transformer($v, $k, $iterable);
 		}
+	}
+
+
+
+	/**
+	 * Reduces the items to a single value by applying the callback to the carry and each item.
+	 * @template V
+	 * @template R
+	 * @param  iterable<mixed, V>  $src
+	 * @param  R  $initial
+	 * @param  callable(R, V): R  $fn
+	 * @return R
+	 */
+	function fold(iterable $src, $initial, callable $fn)
+	{
+		$carry = $initial;
+		foreach ($src as $v) {
+			$carry = $fn($carry, $v);
+		}
+		return $carry;
 	}
 
 }
