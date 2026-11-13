@@ -29,6 +29,17 @@ latte:
 {/foreach}
 ```
 
+```latte
+{foreach ($items|group: category) as $category => $group}
+	{foreach $group as $item}
+		...
+	{/foreach}
+{/foreach}
+```
+
+`group` seskupuje souvislé i nesouvislé prvky podle klíče/vlastnosti nebo closure
+(`fn($item, $key) => ...`), zachovává klíče a pořadí; chování shodné s Latte 3.
+
 
 ## License
 
