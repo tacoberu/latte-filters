@@ -16,6 +16,7 @@ final class FilterLatteExtension extends Latte\Extension
 	{
 		$engine->addFilter('filter', [$this, 'filter']);
 		$engine->addFilter('group', [$this, 'group']);
+		$engine->addFilter('map', [$this, 'map']);
 	}
 
 
@@ -25,6 +26,7 @@ final class FilterLatteExtension extends Latte\Extension
 		return [
 			'filter' => [$this, 'filter'],
 			'group' => [$this, 'group'],
+			'map' => [$this, 'map'],
 		];
 	}
 
@@ -86,6 +88,24 @@ final class FilterLatteExtension extends Latte\Extension
 			$pairs[] = [$key, new PairsIterator($groups[$i])];
 		}
 		return new PairsIterator($pairs);
+	}
+
+
+
+	/**
+	 * Applies the callback to each element, preserving keys.
+	 * @template K
+	 * @template V
+	 * @template R
+	 * @param  iterable<K, V>  $iterable
+	 * @param  callable(V, K, iterable<K, V>): R  $transformer
+	 * @return \Generator<K, R>
+	 */
+	function map(iterable $iterable, callable $transformer): \Generator
+	{
+		foreach ($iterable as $k => $v) {
+			yield $k => $transformer($v, $k, $iterable);
+		}
 	}
 
 }

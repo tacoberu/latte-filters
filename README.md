@@ -40,6 +40,15 @@ latte:
 `group` seskupuje souvislé i nesouvislé prvky podle klíče/vlastnosti nebo closure
 (`fn($item, $key) => ...`), zachovává klíče a pořadí; chování shodné s Latte 3.
 
+```latte
+{foreach ($items|map: fn($item, $key) => strtoupper($item)) as $row}
+	...
+{/foreach}
+```
+
+`map` aplikuje callback `($value, $key, $iterable)` na každý prvek, zachovává klíče
+a vrací generátor; chování shodné s Latte 3.
+
 
 ## License
 
